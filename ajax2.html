@@ -42,6 +42,35 @@
 
       xhr.send();
     }
+
+    document.getElementById('button2').addEventListener('click', loadUsers);
+
+    function loadUsers() {
+      let xhr = new XMLHttpRequest();
+      
+      xhr.open('GET', 'users.json', true);
+      console.log(xhr.readyState);
+
+      xhr.onload = function() {
+        if (this.status == 200) {
+          console.log(this.readyState);
+          let users = JSON.parse(this.responseText);
+          
+          let output = '';
+
+          for (let i in users) {
+            output += `<ul>
+                <li>ID: ${users[i].id}</li>
+                <li>NAME: ${users[i].name}</li>
+                <li>EMAIL: ${users[i].email}</li>
+              </ul>`;
+          }
+          document.getElementById('users').innerHTML = output;
+        }
+      }
+
+      xhr.send();
+    }
   </script>
 </body>
 
